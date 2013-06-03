@@ -49,9 +49,12 @@ namespace GtkSharp.Generation {
 			get { return param_list.Count; }
 		}
 
+		// gapi assumes GError** parameters to be error parameters in version 1 and 2
 		private bool throws = false;
 		public bool Throws {
 			get {
+				if(ParserVersion <=2)
+					return true;
 				if (!throws && elem.HasAttribute ("throws"))
 					throws = elem.GetAttributeAsBoolean ("throws");
 				return throws;
@@ -284,6 +287,13 @@ namespace GtkSharp.Generation {
 					result [i] = this [i].NativeSignature;
 
 				return String.Join (", ", result);
+			}
+		}
+
+		public int ParserVersion {
+			get {
+				XmlElement root = elem.OwnerDocument.DocumentElement;
+				return root.HasAttribute ("parser_version") ? int.Parse (root.GetAttribute ("parser_version")) : 1;
 			}
 		}
 	}

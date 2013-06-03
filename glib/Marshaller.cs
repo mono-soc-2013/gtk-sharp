@@ -178,6 +178,11 @@ namespace GLib {
 			return ret;
 		}
 
+		public static IntPtr StringArrayToNullTermPtr (string[] strs)
+		{
+			return StringArrayToStrvPtr(strs);
+		}
+
 		public static IntPtr[] StringArrayToNullTermPointer (string[] strs)
 		{
 			if (strs == null)
