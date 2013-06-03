@@ -49,6 +49,15 @@ namespace GtkSharp.Generation {
 			get { return param_list.Count; }
 		}
 
+		private bool throws = false;
+		public bool Throws {
+			get {
+				if (!throws && elem.HasAttribute ("throws"))
+					throws = elem.GetAttributeAsBoolean ("throws");
+				return throws;
+			}
+		}
+
 		public int VisibleCount {
 			get {
 				int visible = 0;
@@ -76,7 +85,7 @@ namespace GtkSharp.Generation {
 			if (p.IsCount)
 				return true;
 
-			if (p.CType == "GError**")
+			if (p.CType == "GError**" && Throws)
 				return true;
 
 			if (HasCB || HideData) {
@@ -212,7 +221,7 @@ namespace GtkSharp.Generation {
 							}
 						}
 					}
-				} else if (p.CType == "GError**")
+				} else if (p.CType == "GError**" && Throws)
 					p = new ErrorParameter (parm);
 				else if (gen is StructBase || gen is ByRefGen) {
 					p = new StructParameter (parm);
