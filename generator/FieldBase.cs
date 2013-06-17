@@ -38,16 +38,20 @@ namespace GtkSharp.Generation {
 			}
 
 			return true;
-		}
+		}	
 
 		protected virtual bool Readable {
 			get {
+				if(ParserVersion <= 2)
+					return elem.GetAttribute("readable") != "false";
 				return elem.HasAttribute("readable") && elem.GetAttributeAsBoolean ("readable") != false;
 			}
 		}
 
 		protected virtual bool Writable {
 			get {
+				if(ParserVersion <= 2)
+					return elem.GetAttribute("writeable") != "false";
 				return elem.HasAttribute("writeable") && elem.GetAttributeAsBoolean ("writeable") != false;
 			}
 		}
@@ -81,6 +85,13 @@ namespace GtkSharp.Generation {
 				if (Access == "private" && (Getter == null) && (Setter == null))
 					return true;
 				return false;
+			}
+		}
+
+		public int ParserVersion {
+			get {
+				XmlElement root = elem.OwnerDocument.DocumentElement;
+				return root.HasAttribute ("parser_version") ? int.Parse (root.GetAttribute ("parser_version")) : 1;
 			}
 		}
 
