@@ -85,6 +85,7 @@
     <Compile Include="StructField.cs" />
     <Compile Include="StructGen.cs" />
     <Compile Include="SymbolTable.cs" />
+    <Compile Include="UnionGen.cs" />
     <Compile Include="VMSignature.cs" />
     <Compile Include="VirtualMethod.cs" />
     <Compile Include="XmlElementExtensions.cs" />
@@ -92,6 +93,7 @@
     <Compile Include="ArrayParameter.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="Constant.cs" />
+    <Compile Include="UnionGen.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="DESIGN" />
