@@ -29,10 +29,13 @@ namespace GtkSharp.Generation {
 	public class ArrayParameter : Parameter {
 
 		bool null_terminated;
+		int length_param_index = -1;
 
 		public ArrayParameter (XmlElement elem) : base (elem)
 		{
 			null_terminated = elem.GetAttributeAsBoolean ("null_term_array");
+			if(elem.HasAttribute("array_length_param_index"))
+			   length_param_index = int.Parse(elem.GetAttribute("array_length_param_index"));
 		}
 
 		public override string MarshalType {
@@ -47,6 +50,12 @@ namespace GtkSharp.Generation {
 		bool NullTerminated {
 			get {
 				return null_terminated;
+			}
+		}
+
+		public int LengthParamIndex {
+			get {
+				return length_param_index;
 			}
 		}
 
