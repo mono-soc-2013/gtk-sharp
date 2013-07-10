@@ -129,12 +129,6 @@ namespace GtkSharp.Generation
 			sw.WriteLine ("\t\t\tthis.managed_struct = ({0})Marshal.PtrToStructure(this.Handle, typeof({0}));", native_struct_name);
 			sw.WriteLine ("\t\t}");
 			sw.WriteLine ();
-
-			sw.WriteLine ("\t\tprivate void UpdateByPointer (IntPtr raw)", QualifiedName);
-			sw.WriteLine ("\t\t{");
-			sw.WriteLine ("\t\t\tHandle = raw;");
-			sw.WriteLine ("\t\t}");
-			sw.WriteLine ();
 		}
 
 		protected override void GenCtors (GenerationInfo gen_info)
