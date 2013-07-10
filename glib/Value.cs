@@ -555,12 +555,12 @@ namespace GLib {
 		{
 			Type t = GType.LookupType (type);
 			if (GType.Is (type, GType.Boxed) && !(val is IWrapper)) {
-				MethodInfo mi = val.GetType().GetMethod ("Update", BindingFlags.NonPublic | BindingFlags.Instance);
+				MethodInfo mi = val.GetType().GetMethod ("UpdateByPointer", BindingFlags.NonPublic | BindingFlags.Instance);
 				IntPtr boxed_ptr = g_value_get_boxed (ref this);
 				if(mi == null)
 					Marshal.StructureToPtr (val, boxed_ptr, false);
 				else
-					mi.Invoke (val, null);
+					mi.Invoke (val, new object[] {boxed_ptr});
 			}
 		}
 
