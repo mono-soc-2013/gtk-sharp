@@ -40,25 +40,25 @@ namespace GtkSharp.Generation {
 			return true;
 		}	
 
-		protected virtual bool Readable {
+		public virtual bool Readable {
 			get {
 				if(ParserVersion <= 2)
 					return elem.GetAttribute("readable") != "false";
-				return elem.HasAttribute("readable") && elem.GetAttributeAsBoolean ("readable") != false;
+				return elem.HasAttribute("readable") && elem.GetAttributeAsBoolean ("readable");
 			}
 		}
 
-		protected virtual bool Writable {
+		public virtual bool Writable {
 			get {
 				if(ParserVersion <= 2)
 					return elem.GetAttribute("writeable") != "false";
-				return elem.HasAttribute("writeable") && elem.GetAttributeAsBoolean ("writeable") != false;
+				return elem.HasAttribute("writeable") && elem.GetAttributeAsBoolean ("writeable");
 			}
 		}
 
 		protected abstract string DefaultAccess { get; }
 
-		protected string Access {
+		public string Access {
 			get {
 				return elem.HasAttribute ("access") ? elem.GetAttribute ("access") : DefaultAccess;
 			}
