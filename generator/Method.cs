@@ -110,10 +110,10 @@ namespace GtkSharp.Generation {
 			}
 		}
 
-		private void GenerateDeclCommon (StreamWriter sw, ClassBase implementor)
+		private void GenerateDeclCommon (StreamWriter sw, ClassBase implementor, bool skipOptional = false)
 		{
 			if (IsStatic)
-				sw.Write("static ");
+				sw.Write ("static ");
 			sw.Write (Safety);
 			Method dup = null;
 			if (container_type != null)
@@ -121,19 +121,19 @@ namespace GtkSharp.Generation {
 			if (implementor != null)
 				dup = implementor.GetMethodRecursively (Name);
 
-			if (Name == "ToString" && Parameters.Count == 0 && (!(container_type is InterfaceGen)|| implementor != null))
-				sw.Write("override ");
+			if (Name == "ToString" && Parameters.Count == 0 && (!(container_type is InterfaceGen) || implementor != null))
+				sw.Write ("override ");
 			else if (Name == "GetGType" && container_type is ObjectGen)
-				sw.Write("new ");
-			else if (Modifiers == "new " || (dup != null && ((dup.Signature != null && Signature != null && dup.Signature.ToString() == Signature.ToString()) || (dup.Signature == null && Signature == null))))
-				sw.Write("new ");
+				sw.Write ("new ");
+			else if (Modifiers == "new " || (dup != null && ((dup.Signature != null && Signature != null && dup.Signature.ToString () == Signature.ToString ()) || (dup.Signature == null && Signature == null))))
+				sw.Write ("new ");
 
 			if (is_get || is_set) {
 				if (retval.IsVoid)
 					sw.Write (Parameters.AccessorReturnType);
 				else
-					sw.Write(retval.CSType);
-				sw.Write(" ");
+					sw.Write (retval.CSType);
+				sw.Write (" ");
 				if (Name.StartsWith ("Get") || Name.StartsWith ("Set"))
 					sw.Write (Name.Substring (3));
 				else {
@@ -143,7 +143,7 @@ namespace GtkSharp.Generation {
 					else
 						sw.Write (Name);
 				}
-				sw.WriteLine(" { ");
+				sw.WriteLine (" { ");
 			} else if (IsAccessor) {
 				sw.Write (Signature.AccessorType + " " + Name + "(" + Signature.AsAccessor + ")");
 			} else {
@@ -207,6 +207,14 @@ namespace GtkSharp.Generation {
 			}
 		}
 
+		public void GenerateOverloads (StreamWriter sw)
+		{
+			sw.WriteLine ();
+			sw.WriteLine ("\t\t" + retval.CSType + " " + Name + "(" + (Signature != null ? Signature.WithoutOptional () : "") + ") {");
+			sw.WriteLine ("\t\t\t{0}{1} ({2});", !retval.IsVoid ? "return " : "",Name, Signature.CallWithoutOptionals ());
+			sw.WriteLine ("\t\t}");
+		}
+
 		public void Generate (GenerationInfo gen_info, ClassBase implementor)
 		{
 			Method comp = null;
@@ -266,6 +274,9 @@ namespace GtkSharp.Generation {
 			}
 			else
 				gen_info.Writer.WriteLine();
+
+			if(Parameters.HasOptional && !(is_get || is_set))
+				GenerateOverloads(gen_info.Writer);
 			
 			gen_info.Writer.WriteLine();
 
