@@ -23,6 +23,8 @@ sources =		 			\
 	Argv.cs					\
 	ConnectBeforeAttribute.cs		\
 	Cond.cs					\
+	Date.cs					\
+	DateTime.cs				\
 	DefaultSignalHandlerAttribute.cs	\
 	DestroyNotify.cs			\
 	ExceptionManager.cs			\
@@ -68,6 +70,8 @@ sources =		 			\
 	Spawn.cs				\
 	Thread.cs				\
 	Timeout.cs				\
+	TimeVal.cs				\
+	TimeZone.cs				\
 	ToggleRef.cs				\
 	TypeFundamentals.cs			\
 	TypeInitializerAttribute.cs		\

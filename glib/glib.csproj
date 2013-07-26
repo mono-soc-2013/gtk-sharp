@@ -89,5 +89,8 @@
     <Compile Include="Mutex.cs" />
     <Compile Include="RecMutex.cs" />
     <Compile Include="Cond.cs" />
+    <Compile Include="Date.cs" />
+    <Compile Include="DateTime.cs" />
+    <Compile Include="TimeVal.cs" />
   </ItemGroup>
 </Project>
