@@ -59,7 +59,7 @@ namespace GtkSharp.Generation
 			SymbolTable table = SymbolTable.Table;
 			StreamWriter sw = gen_info.Writer;
 
-			sw.WriteLine("{0}public const {1} {2} = {3}{4}{3};", indent, ConstType, Name, IsString ? "\"": String.Empty, value, IsString ? "\"": String.Empty);
+			sw.WriteLine("{0}public const {1} {2} = {3}{4}{5};", indent, ConstType, Name, IsString ? "@\"": String.Empty, value, IsString ? "\"": String.Empty);
 		}
 	}
 }
