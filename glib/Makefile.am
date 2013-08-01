@@ -57,6 +57,7 @@ sources =		 			\
 	ObjectManager.cs			\
 	Opaque.cs				\
 	ParamSpec.cs				\
+	PollFD.cs				\
 	Priority.cs				\
 	PropertyAttribute.cs			\
 	PtrArray.cs				\
@@ -67,6 +68,12 @@ sources =		 			\
 	SignalClosure.cs			\
 	SList.cs				\
 	Source.cs				\
+	SourceFunc.cs				\
+	SourceFuncs.cs				\
+	SourceDummyMarshal.cs			\
+	GLibSharp.SourceFuncNative.cs		\
+	GLibSharp.SourceDummyMarshalNative.cs	\
+	SourceCallbackFuncs.cs			\
 	Spawn.cs				\
 	Thread.cs				\
 	Timeout.cs				\
