@@ -109,7 +109,6 @@ namespace GtkSharp.Generation {
 #endif
 
 			// string types
-			AddType (new ConstStringGen ("const gchar* const"));
 			AddType (new ConstStringGen ("const-gchar"));
 			AddType (new ConstStringGen ("const-xmlChar"));
 			AddType (new ConstStringGen ("const-char"));
