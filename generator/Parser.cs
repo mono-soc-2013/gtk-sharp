@@ -76,7 +76,7 @@ namespace GtkSharp.Generation {
 			return Parse (filename, null);
 		}
 
-		public IGeneratable[] Parse (string filename, string schema_file)
+		public IGeneratable[] Parse (string filename, string schema_file, string gapidir = "")
 		{
 			XmlDocument doc = Load (filename, schema_file);
 			if (doc == null)
@@ -112,7 +112,18 @@ namespace GtkSharp.Generation {
 
 				switch (child.Name) {
 				case "include":
-					IGeneratable[] curr_gens = Parse (elem.GetAttribute("xml"));
+					string xmlpath;
+
+					if (File.Exists (Path.Combine (gapidir, elem.GetAttribute("xml"))))
+						xmlpath = Path.Combine (gapidir, elem.GetAttribute("xml"));
+					else if (File.Exists (elem.GetAttribute("xml")))
+					   xmlpath = elem.GetAttribute("xml");
+					else {
+						Console.WriteLine ("Parser:: Could not find include " + elem.GetAttribute("xml"));
+						break;
+					}
+
+					IGeneratable[] curr_gens = Parse (xmlpath);
 					SymbolTable.Table.AddTypes (curr_gens);
 					break;
 				case "namespace":
